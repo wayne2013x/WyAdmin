@@ -4,13 +4,14 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace WyAdmin.Web.Controllers
+namespace WyAdmin.Web.Areas.Admin.Controllers
 {
-    public class HomeController : Controller
+    public class LoginController : Controller
     {
+        // GET: Admin/Login
         public ActionResult Index()
         {
-            return RedirectToAction("Index", "Login", new { area = "Admin" });
+            return View();
         }
     }
 }
