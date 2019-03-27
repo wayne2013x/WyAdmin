@@ -13,5 +13,21 @@ namespace WyAdmin.Web.Areas.Admin.Controllers
         {
             return View();
         }
+
+        /// <summary>
+        /// 登录
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Signin(string namaVal,string pwdVal)
+        {
+            return View();
+        }
+
+        public ActionResult Logout()
+        {
+            return View();
+        }
+
     }
 }
