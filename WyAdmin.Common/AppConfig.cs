@@ -23,7 +23,7 @@ namespace WyAdmin.Common
         /// <summary>
         /// 登录地址
         /// </summary>
-        public static string LoginPageUrl = "/Admin/Login/";
+        public static string LoginPageUrl = "/Login/Index/";
 
         /// <summary>
         /// 首页地址

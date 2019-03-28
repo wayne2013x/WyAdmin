@@ -59,7 +59,7 @@
                 if (!nameVal) return admin.msg("请输入用户名", "警告");
                 if (!pwdVal) return admin.msg("请输入密码", "警告");
                 admin.ajax({
-                    url: "Login/Signin",
+                    url: "/Login/Signin",
                     data: {
                         nameVal: nameVal,
                         pwdVal: pwdVal,
