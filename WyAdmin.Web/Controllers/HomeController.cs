@@ -10,7 +10,7 @@ namespace WyAdmin.Web.Controllers
     {
         public ActionResult Index()
         {
-            return RedirectToAction("Index", "Login", new { area = "Admin" });
+            return View();
         }
     }
 }
