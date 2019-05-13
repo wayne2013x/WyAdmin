@@ -1,0 +1,163 @@
+﻿
+<div class="page animation-fade">
+
+    <div class="page-content">
+        <!--高级检索部分-->
+        <div class="panel" id="panelSearch">
+            <div class="panel-heading">
+                <h3 class="panel-title">高级检索</h3>
+            </div>
+            <div class="panel-body">
+
+                <form action="javascript:void(0)" class="form-row">
+                    <div class="col-sm-3">
+                        <h4 class="example-title">会员名称</h4>
+                        <input type="text" class="form-control" name="Member_Name" placeholder="请输入 会员名称">
+                    </div>
+                    <div class="col-sm-3">
+                        <h4 class="example-title">帐户名称</h4>
+                        <input type="text" class="form-control" name="User_Name" placeholder="请输入 帐户名称">
+                    </div>
+                </form>
+
+            </div>
+            <div class="panel-footer text-right">
+                <button class="btn btn-primary" onclick="adminList.search()">检索</button>&nbsp;&nbsp;
+                <button class="btn btn-success" onclick="adminList.resetSearch()">重置</button>&nbsp;&nbsp;
+                <button class="btn btn-danger" onclick="adminList.panelSearch()">关闭</button>
+            </div>
+        </div>
+
+        <!--列表-->
+        <div class="panel">
+            <div class="panel-heading">
+                <div class="col-sm-12 pl-25 pr-25 pt-15 pb-10">
+                    <button type="button" class="btn btn-primary" onclick="window.location=window.location">
+                        <i class="fa fa-rotate-right"></i>&nbsp;刷新
+                    </button>
+                    <button type="button" class="btn btn-primary" data-power="Search" name="search" onclick="adminList.panelSearch()">
+                        <i class="fa fa-search"></i>&nbsp;检索
+                    </button>
+                    <button type="button" class="btn btn-primary" data-power="Add" name="add" onclick="App.Form('add')">
+                        <i class="fa fa-plus"></i>&nbsp;添加
+                    </button>
+                    <button type="button" class="btn btn-primary" data-power="Edit" name="edit" onclick="App.Form('edit')" disabled="disabled">
+                        <i class="fa fa-pencil"></i>&nbsp;修改
+                    </button>
+                    <button type="button" class="btn btn-primary" data-power="Delete" name="delete" onclick="App.Delete()" disabled="disabled">
+                        <i class="fa fa-trash"></i>&nbsp;删除
+                    </button>
+                    <a class="btn btn-primary" target="_blank" href="" data-power="GetExcel" name="getExcel" onclick="App.ExportExcel()">
+                        <i class="fa fa-file-excel-o"></i>&nbsp;导出 Excel
+                    </a>
+                    <a class="btn btn-primary" target="_blank" data-power="Print" name="print" onclick="App.Print()"><i class="fa fa-file-text"></i>&nbsp;打印</a>
+                    <a class="btn btn-primary" onclick="top.wyRouter.load('子弹新窗口1', '/Admin/Login/Index');"><i class="fa fa-file-text"></i>&nbsp;打开登陆页面</a>
+                    <a class="btn btn-primary" onclick="top.wyRouter.load('子弹新窗口2', '/Admin/Member/Index/?a=1');"><i class="fa fa-file-text"></i>&nbsp;打开登陆页面</a>
+                    <a class="btn btn-primary" target="_blank" href="~/Content/Template/会员管理导入模板.xls">
+                        <i class="fa fa-file-excel-o"></i>&nbsp;下载导入模板
+                    </a>
+                    <!--导入 start-->
+                    <a class="btn btn-primary" onclick="$('#excel_to_db').click();" href="javascript:void(0);">
+                        <i class="fa fa-file-excel-o"></i>&nbsp;导入 Excel
+                    </a>
+                    <input type="file" id="excel_to_db" name="excel_to_db" style="display:none;" onchange="App.ExcelToDb(this);" />
+                    <!--导入 end-->
+
+                </div>
+            </div>
+            <div class="panel-body container-fluid pb-0">
+
+                <!--表格-->
+                <table class="table table-hover" id="bootStrapTable"></table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section css{
+    <style type="text/css">
+    </style>
+}
+@section js{
+    <script src="~/Scripts/libs/bootstrap-table-develop/src/bootstrap-table.js"></script>
+    <script src="~/Scripts/libs/bootstrap-table-develop/src/locale/bootstrap-table-zh-CN.js"></script>
+    <script src="~/Scripts/admin-list.js"></script>
+    <script type="text/javascript">
+        var FormID = "@ViewData["formWindowName"]";
+        var thisWindowName = "@ViewData["thisWindowName"]";
+
+        $(function () {
+
+            App.Init();
+
+        });
+
+
+        var App = {
+            Init: function () {
+                admin.ajax({
+                    url: "@Url.Action("GetDataSource")",
+                    data: { rows: 1 },
+                    success: function (r) {
+                        var adminBootStrapTable = adminList.bootStrapTable({
+                            url: "@Url.Action("GetDataSource")",
+                            columns: r.column
+                        });
+                    }
+                });
+            },
+            Form: function (tag) {
+                var rows = adminList.selectRows();
+                var url = "@Url.Action("Info")";
+                if (tag == "add") {
+                    url = url + "/?ID=";
+                } else {
+                    url = url + "/?ID=" + rows[0]._ukid;
+                }
+                adminList.form({
+                    id: FormID,
+                    parentIframeName: thisWindowName,
+                    url: url,
+                    width: "1200px",
+                    height: "1000px",
+                    btn: false,
+                });
+            },
+            Delete: function () {
+                adminList.delete('@Url.Action("Delete")', function () {
+                    App.Refresh();
+                    console.log("删除完成!");
+                });
+            },
+            ExportExcel: function () {
+                adminList.exportExcel('@Url.Action("ExportExcel")');
+            },
+            Refresh: function (data) {
+                adminList.refresh(data);
+            },
+            Print: function () {
+                adminList.print('@Url.Action("Print")');
+            },
+            ExcelToDb: function ($this) {
+                $this = $($this);
+                var form = new FormData();
+                form.append("excel_to_db", document.getElementById("excel_to_db").files[0]);
+                admin.ajax({
+                    url: "@Url.Action("ExcelToDb")",
+                    isUpFile: true,
+                    data: form,
+                    success: function (r, status) {
+                        $this.val("");
+                        if (r.status == 1) {
+                            admin.msg("导入成功!", "成功");
+                            App.Refresh();
+                        }
+                    }
+                });
+            }
+
+        };
+
+    </script>
+}

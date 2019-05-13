@@ -1,0 +1,79 @@
+﻿<div class="page animation-fade">
+
+    <div class="page-content">
+
+        <div class="col-sm-6 offset-sm-3">
+            <div class="panel">
+                @*<div class="panel-heading">
+                    <h3 style="font-weight:bold">修改密码</h3>
+                </div>*@
+                <div class="panel-body">
+
+                    <div class="col-sm-8 offset-sm-2">
+                        <h4 class="example-title"></h4>
+                        <input type="text" class="form-control" disabled="disabled" value="@ViewData["userName"]" />
+                    </div>
+                    <div class="col-sm-8 offset-sm-2">
+                        <h4 class="example-title"></h4>
+                        <input type="password" class="form-control" name="oldpwd" placeholder="请输入旧密码" />
+                    </div>
+                    <div class="col-sm-8 offset-sm-2">
+                        <h4 class="example-title"></h4>
+                        <input type="password" class="form-control" name="newpwd" placeholder="请输入新密码" />
+                    </div>
+                    <div class="col-sm-8 offset-sm-2">
+                        <h4 class="example-title"></h4>
+                        <input type="password" class="form-control" name="newlypwd" placeholder="请重新输入新密码" />
+                    </div>
+
+                </div>
+                <div class="panel-footer text-center">
+                    <button type="button" class="btn btn-primary" onclick="App.EditPwd()">保存</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+@section css{
+
+}
+@section js{
+    <script type="text/javascript">
+        var App = {
+            EditPwd: function () {
+                var oldpwd = $(".panel-body input[name=oldpwd]").val();
+                var newpwd = $(".panel-body input[name=newpwd]").val();
+                var newlypwd = $(".panel-body input[name=newlypwd]").val();
+                if (!oldpwd) {
+                    return admin.msg("请输入旧密码!", "警告");
+                }
+                if (!newpwd) {
+                    return admin.msg("请输入新密码!", "警告");
+                }
+                if (!newlypwd) {
+                    return admin.msg("请输入确认密码!", "警告");
+                }
+                if (newpwd != newlypwd) {
+                    return admin.msg("两次密码不一致!", "警告");
+                }
+                admin.ajax({
+                    url: "@Url.Action("ChangePwd")",
+                    data: {
+                        oldpwd: oldpwd,
+                        newpwd: newpwd,
+                        newlypwd: newlypwd
+                    },
+                    success: function (r) {
+                        if (r.status == 1) {
+                            return admin.msg("操作成功!");
+                        }
+                    }
+                });
+
+            }
+        };
+    </script>
+}

@@ -1,0 +1,113 @@
+﻿@using DbFrame.Class
+@using System.Data
+@model Sys_PagingEntity
+@{
+    ViewBag.Title = TempData["Title"];
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <style type="text/css">
+        body {
+            background-color: white;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+            table td, th {
+                padding: 5px;
+            }
+
+            table td {
+                text-align: center;
+            }
+
+        .tools {
+            border: 1px solid #cccccc;
+            width: 100%;
+            height: 30px;
+            line-height: 28px;
+        }
+
+            .tools a {
+                width: 100px;
+                text-align: center;
+                border: 0px solid;
+                height: 30px;
+                margin-left: 20px;
+            }
+    </style>
+</head>
+<body>
+    <div>
+        <div class="tools">
+            <a href="javascript:void(0)" name="print" onclick="print()">打印</a>
+        </div>
+        <br />
+        <table border="1">
+            <thead>
+                <tr>
+                    @foreach (DataColumn dc in Model.Table.Columns)
+                    {
+                        if (dc.ColumnName != "_ukid")
+                        {
+                            foreach (var item in Model.ColNames)
+                            {
+                                if (item.ContainsKey(dc.ColumnName))
+                                {
+                                    <th>@item[dc.ColumnName]</th>
+                                }
+                            }
+                        }
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.List)
+                {
+                    <tr>
+                        @foreach (DataColumn dc in Model.Table.Columns)
+                        {
+                            if (dc.ColumnName != "_ukid")
+                            {
+                                <td>@item[dc.ColumnName]</td>
+                            }
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/libs/jQuery.print-master/jQuery.print.js"></script>
+<script type="text/javascript">
+    function print() {
+        $("table").print();
+        //$("table").print({
+        //    //Use Global styles
+        //    globalStyles: true,
+        //    //Add link with attrbute media=print
+        //    mediaPrint: false,
+        //    //Custom stylesheet
+        //    //stylesheet: "http://fonts.googleapis.com/css?family=Inconsolata",
+        //    //Print in a hidden iframe
+        //    iframe: false,
+        //    //Don't print this
+        //    noPrintSelector: ".avoid-this",
+        //    //Add this at top
+        //    //prepend: "Hello World!!!",
+        //    //Add this on bottom
+        //    //append: "Buh Bye!",
+        //    //Log to console when printing is done via a deffered callback
+        //    deferred: $.Deferred().done(function () { console.log('Printing done', arguments); })
+        //});
+    }
+</script>

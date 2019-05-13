@@ -1,0 +1,15 @@
+K:\Project\WyAdmin\Common\bin\Release\Common.dll
+K:\Project\WyAdmin\Common\bin\Release\Common.pdb
+K:\Project\WyAdmin\Common\bin\Release\log4net.dll
+K:\Project\WyAdmin\Common\bin\Release\Newtonsoft.Json.dll
+K:\Project\WyAdmin\Common\bin\Release\NPOI.dll
+K:\Project\WyAdmin\Common\bin\Release\NPOI.OOXML.dll
+K:\Project\WyAdmin\Common\bin\Release\NPOI.OpenXml4Net.dll
+K:\Project\WyAdmin\Common\bin\Release\NPOI.OpenXmlFormats.dll
+K:\Project\WyAdmin\Common\bin\Release\log4net.xml
+K:\Project\WyAdmin\Common\bin\Release\Newtonsoft.Json.xml
+K:\Project\WyAdmin\Common\obj\Release\Common.csprojAssemblyReference.cache
+K:\Project\WyAdmin\Common\obj\Release\Common.csproj.CoreCompileInputs.cache
+K:\Project\WyAdmin\Common\obj\Release\Common.csproj.CopyComplete
+K:\Project\WyAdmin\Common\obj\Release\Common.dll
+K:\Project\WyAdmin\Common\obj\Release\Common.pdb

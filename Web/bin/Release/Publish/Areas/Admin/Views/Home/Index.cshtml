@@ -1,0 +1,202 @@
+﻿@model Entity.SysClass.Account
+@{
+    ViewBag.title = "WyAdmin MVC";
+    var MainPage = "/Admin/Home/Main/";
+}
+<div id="wy-container" class="animated fadeIn">
+    <header class="index-skin-primary">
+        <div class="wy-header-pc hidden-sm-down">
+            <div class="wy-header-left wy-left">
+                <ul>
+                    <li class="wy-header-btn wy-headerhover" onclick="wy.menu.toggle(this);" title="左侧菜单/收缩" data-toggle="tooltip" data-placement="bottom">
+                        <a href="javascript:void(0)">
+                        <i class="icon icon-menu"></i>
+                        </a>
+                    </li>
+                    <li class="wy-header-btn wy-headerhover wy-logo" title="Logo" data-toggle="tooltip" data-placement="bottom"><a href="javascript:void(0)" class="pl-15 pr-15">@ViewBag.Title</a></li>
+                </ul>
+            </div>
+            <div class="wy-header-right wy-right">
+                <ul>
+                    <li class="wy-header-btn wy-headerhover" onclick="wy.tabs.refreshThisTab()" title="刷新" data-toggle="tooltip" data-placement="bottom">
+                        <a href="javascript:void(0)">
+                            <i class="icon icon-refresh"></i>
+                        </a>
+                    </li>
+                    <li class="wy-header-btn wy-headerhover" title="换肤" data-toggle="tooltip" data-placement="bottom" onclick="$('#examplePositionSidebar').modal()">
+                        <a href="javascript:void(0)">
+                            <i class="icon icon-settings"></i>
+                        </a>
+                    </li>
+                    <!--缩小 图标 wb-contract-->
+                    <li class="wy-header-btn wy-headerhover" onclick="wy.fullScreen.handleFullScreen(this);" title="全屏" data-toggle="tooltip" data-placement="bottom">
+                        <a href="javascript:void(0)">
+                        <i class="icon icon-size-fullscreen"></i>
+                        </a>
+                    </li>
+                    <li class="wy-header-btn wy-headerhover"><a href="/Admin/Login/Out" title="退出系统" data-toggle="tooltip" data-placement="bottom">
+                        <span>@Model.UserName&nbsp;&nbsp;</span>
+                        <i class="icon icon-power"></i>
+                          </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="wy-header-mobile">
+            <ul>
+                <li class="wy-header-btn wy-headerhover" onclick="wy.menu.toggle(this)"><a href="javascript:void(0)" class="pl-15 pr-15"><i class="fa fa-bars"></i></a></li>
+                <li class="wy-header-btn wy-headerhover wy-logo"><a href="javascript:void(0)" class="pl-15 pr-15">@ViewBag.Title</a></li>
+                <li class="wy-header-btn wy-headerhover pull-right"><a href="/Admin/Login/Out" class="pl-15 pr-15"><i class="fa fa-sign-out"></i></a></li>
+            </ul>
+        </div>
+    </header>
+    <main>
+        <nav class="wy-navMenu wy-navMenu-width220">
+            <div class="wy-navMenu-sidebar sidebar-nav">
+                @Html.Raw(ViewData["MenuHtml"])
+            </div>
+        </nav>
+        <content class="wy-left220">
+            <nav class="wy-navTab">
+                <div class="wy-navTab-left" onclick="wy.tabs.leftMove()"><i class="fa fa-chevron-left"></i></div>
+                <div class="wy-navTab-center">
+                    <ul class="list-unstyled list-inline">
+                        <li class="wy-navTab-li active" title="首页">
+                            <a href="javascript:void(0)" wy-router-href="@(MainPage)" wy-router-text="首页">
+                                <span>首页</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="wy-navTab-right" onclick="wy.tabs.rightMove()"><i class="fa fa-chevron-right"></i></div>
+                <div class="btn-group dropdown pull-left" style="height:100%;" id="wy-tools">
+                    <button type="button" class="btn btn-outline btn-default dropdown-toggle height-full wy-navTab-more"
+                            id="exampleBulletDropdown2" data-toggle="dropdown" aria-expanded="false"></button>
+                    <div class="dropdown-menu dropdown-menu-bullet dropdown-menu-right" aria-labelledby="exampleBulletDropdown2"
+                         role="menu" x-placement="bottom-end">
+                        <a class="dropdown-item" href="javascript:;" role="menuitem" onclick="wy.tabs.removeOtherTab()">
+                            <i class="fa fa-close"></i> 关闭其他
+                        </a>
+                        <a class="dropdown-item" href="javascript:;" role="menuitem" onclick="wy.tabs.removeAllTab()">
+                            <i class="fa fa-power-off"></i>
+                            关闭所有
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="javascript:;" role="menuitem" onclick="wy.tabs.refreshThisTab()">
+                            <i class="fa fa-repeat"></i> 刷新当前
+                        </a>
+                    </div>
+                </div>
+            </nav>
+            <section class="wy-main">
+                <div id="pageContent">
+                    <iframe class="wy-iframe wy-iframe-active" frameborder="0" src="@MainPage" name="@("adminIframe-"+MainPage)"></iframe>
+                </div>
+            </section>
+        </content>
+    </main>
+</div>
+
+<!--皮肤模态框-->
+<div class="modal fade" id="examplePositionSidebar" aria-hidden="true" aria-labelledby="examplePositionSidebar" role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-sidebar modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">皮肤设置</h3>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">导航条颜色：</label>
+                        <ul class="list-unstyled list-inline" style="text-align: center;">
+                            <li class="pr-5 pl-5 inline-block">
+                                <div class="index-skin index-skin-primary" onclick="wy.setTheme(null,0);"></div>
+                            </li>
+                            <li class="pr-5 pl-5 inline-block">
+                                <div class="index-skin index-skin-cyan" onclick="wy.setTheme(null,1);"></div>
+                            </li>
+                            <li class="pr-5 pl-5 inline-block">
+                                <div class="index-skin index-skin-green" onclick="wy.setTheme(null,2);"></div>
+                            </li>
+                            <li class="pr-5 pl-5 inline-block">
+                                <div class="index-skin index-skin-indigo" onclick="wy.setTheme(null,3);"></div>
+                            </li>
+                            <li class="pr-5 pl-5 inline-block">
+                                <div class="index-skin index-skin-grey" onclick="wy.setTheme(null,4);"></div>
+                            </li>
+                            <li class="pr-5 pl-5 inline-block">
+                                <div class="index-skin index-skin-pink" onclick="wy.setTheme(null,5);"></div>
+                            </li>
+                            <li class="pr-5 pl-5 inline-block">
+                                <div class="index-skin index-skin-purple" onclick="wy.setTheme(null,6);"></div>
+                            </li>
+                            <li class="pr-5 pl-5 inline-block">
+                                <div class="index-skin index-skin-red" onclick="wy.setTheme(null,7);"></div>
+                            </li>
+                            <li class="pr-5 pl-5 inline-block">
+                                <div class="index-skin index-skin-teal" onclick="wy.setTheme(null,8);"></div>
+                            </li>
+                            <li class="pr-5 pl-5 inline-block">
+                                <div class="index-skin index-skin-orange" onclick="wy.setTheme(null,9);"></div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="form-group">
+                        <label>菜单皮肤：</label>
+                        <select class="form-control" onchange="wy.setTheme($(this).val(),null)">
+                            <option value="0">==菜单皮肤==</option>
+                            <option value="0">深色</option>
+                            <option value="1">浅色</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>菜单默认状态：</label>
+                        <select class="form-control" onchange="wy.menu.toggle(null, $(this).val())">
+                            <option value="">==菜单默认状态==</option>
+                            <option value="2">收起</option>
+                            <option value="1">展开</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-block" data-dismiss="modal">  关闭 </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section css{
+    <link href="~/Content/metisMenu.css" rel="stylesheet" />
+    <style type="text/css">
+        body {
+            overflow: hidden;
+        }
+
+        .dropdown-menu {
+            margin-top: 0;
+        }
+
+        #wy-container {
+            height: 100%;
+        }
+    </style>
+}
+@section js{
+    <script src="~/Scripts/Router.js"></script>
+    <script src="~/Scripts/metisMenu.js"></script>
+    <script src="~/Scripts/main.js"></script>
+    <script type="text/javascript">
+    $(function () {
+        wyRouter.init();
+        wy.init();
+            $('#wy-tools > .dropdown-toggle').dropdown();
+            $('#wy-container').on('click', function () {
+                $('#wy-tools > .dropdown-toggle').dropdown('toggle');
+            });
+            //setTimeout(function () {
+            //    $("#menu li .has-arrow.has-first-menu").eq(0).click();
+            //}, 200);
+        });
+    </script>
+}

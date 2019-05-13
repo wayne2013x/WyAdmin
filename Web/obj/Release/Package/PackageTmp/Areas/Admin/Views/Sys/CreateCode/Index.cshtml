@@ -1,0 +1,168 @@
+﻿@{
+    ViewBag.BodyClass = "page-aside-fixed page-aside-left site-contabs-open site-menubar-unfold ";
+}
+<div class="page animation-fade">
+    <div class="page-aside">
+
+        <div class="page-aside-switch">
+            <i class="icon wb-chevron-left" aria-hidden="true"></i>
+            <i class="icon wb-chevron-right" aria-hidden="true"></i>
+        </div>
+
+        <div class="page-aside-inner page-aside-scroll" data-plugin="mCustomScrollbar">
+            <div data-role="container">
+                <div data-role="content">
+                    <section class="page-aside-section">
+                        <!--标签树-->
+                        <ul id="tree" class="ztree"></ul>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-main">
+        <div class="page-content">
+
+            <div class="row">
+
+                <div class="col-sm-6">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <h3>配置参数</h3>
+                        </div>
+                        <div class="panel-body">
+
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h4 class="example-title" style="margin-top:11px;">类型</h4>
+                                    <select class="form-control" data-bind="value:ClassType">
+                                        <option value="Model">Model</option>
+                                        <option value="Logic">Logic</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-sm-12">
+                                    <h4 class="example-title" style="margin-top:11px;">创建后保存路径</h4>
+                                    <input type="text" class="form-control" value="" data-bind="value:Url" />
+                                </div>
+
+                                <div class="col-sm-12">
+                                    <h4 class="example-title" style="margin-top:11px;">类名追加字符</h4>
+                                    <input type="text" class="form-control" value="" placeholder="（如：M）不填则默认" data-bind="value:Str" />
+                                </div>
+
+                                <div class="col-sm-12">
+                                    <h4 class="example-title" style="margin-top:11px;">表</h4>
+                                    <input type="text" class="form-control" value="" readonly="readonly" data-bind="value:Table" />
+                                </div>
+
+                                <div class="col-sm-12">
+                                    <h4 class="example-title" style="margin-top:11px;"></h4>
+                                    <span style="color:red;">注意：<p>点击创建按钮是创建一个表（所以得选中左边要创建的表）</p>点击创建所有是创建库中所有的的表</span>
+                                </div>
+
+                                <div class="col-sm-12 text-center mt-20">
+                                    <button class="btn btn-primary" type="button" onclick="App.Save()">创建</button>
+                                    <button class="btn btn-danger" type="button" onclick="App.Save('all')">创建所有</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section css{
+    <link href="~/Scripts/libs/zTree/css/metroStyle/metroStyle.css" rel="stylesheet" />
+    <style type="text/css">
+        .panel {
+            padding: 20px;
+        }
+    </style>
+
+}
+@section js{
+    <script src="~/Scripts/libs/Ko/Knockout-3.4.2.debug.js"></script>
+    <script src="~/Scripts/libs/zTree/js/jquery.ztree.all.min.js"></script>
+    <script src="~/Scripts/libs/zTree/js/jquery.ztree.all.min.js"></script>
+    <script type="text/javascript">
+        model = new vModel();
+        $(function () {
+            ko.applyBindings(model);
+            App.GetTree();
+            model.Url(d);
+            model.ClassType("Model");
+        });
+
+        var App = {
+            GetTree: function () {
+                admin.ajax({
+                    url: "@Url.Action("GetZTreeAllTable")",
+                    success: function (r) {
+                        var setting = {
+                            check: {
+                                enable: false,
+                                chkboxType: { "Y": "ps", "N": "ps" }
+                            },
+                            view: {
+                                dblClickExpand: true
+                            },
+                            data: {
+                                simpleData: {
+                                    enable: true,
+                                    idKey: "id",
+                                    pIdKey: "pId",
+                                    rootPId: 0,
+                                },
+                                key: { checked: 'checked' }
+                            },
+                            callback: {
+                                onClick: function (event, treeId, treeNode) {
+                                    //console.log(treeNode.id);
+                                    var string = treeNode.id;
+                                    if (string.indexOf('$~') != -1) {
+                                        string = string.split('$~')[0];
+                                    }
+                                    model.Table(string);
+                                },
+                            }
+                        };
+                        zTree = $.fn.zTree.init($("#tree"), setting, r.value);
+                        //zTree.expandAll(true);//展开所有
+                    }
+                });
+            },
+            Save: function (tag) {
+                if (!tag) {
+                    model.isall(false);
+                    if (!model.Table()) {
+                        return admin.msg("要创建单个类请在左边选则要创建的表!", "警告");
+                    }
+                }
+                admin.ajax({
+                    url: "@Url.Action("Save")",
+                    data: model,
+                    success: function (r) {
+                        if (r.status == 1) {
+                            admin.msg("创建成功!", "成功");
+                        }
+                    }
+                });
+            }
+        };
+        var d = "@(HttpContext.Current.Server.MapPath("/Content/CreateFile").Replace("\\","\\\\"))";
+        function vModel() {
+            this.ClassType = ko.observable("Model");
+            this.Url = ko.observable(d);
+            this.Str = ko.observable("");
+            this.Table = ko.observable("");
+            this.isall = ko.observable(true);
+        }
+
+    </script>
+}

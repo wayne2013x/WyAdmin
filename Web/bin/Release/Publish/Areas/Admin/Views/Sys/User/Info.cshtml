@@ -1,0 +1,102 @@
+﻿@{
+    var KeyId = Request.QueryString["ID"];
+}
+<div class="page-content animated fadeInDown">
+    <div class="container-fluid  pb-100">
+        <div class="row" id="form">
+            <!--检索面板-->
+
+            <div class="col-sm-12">
+                <h4 class="example-title">用户名</h4>
+                <input type="text" class="form-control" name="User_Name" data-bind="value:User_Name" placeholder="请输入用户名" />
+            </div>
+
+            <div class="col-sm-12">
+                <h4 class="example-title">登录名</h4>
+                <input type="text" class="form-control" name="User_LoginName" data-bind="value:User_LoginName" placeholder="请输入登录名" />
+            </div>
+
+            <div class="col-sm-12">
+                <h4 class="example-title">登录密码</h4>
+                <input type="text" class="form-control" name="User_Pwd" data-bind="value:User_Pwd" placeholder="请输入登录密码" />
+            </div>
+
+            <div class="col-sm-12">
+                <h4 class="example-title">邮箱地址</h4>
+                <input type="text" class="form-control" name="User_Email" data-bind="value:User_Email" placeholder="请输入邮件" />
+            </div>
+
+            @(UI.FindBack<Sys_Role, Sys_Role>(
+                                                w => w.Role_Name, w => w.Role_ID,
+                                                Url.Action("Index", "Role", new { findback = "1" }),
+                                                "App.FindBack.CallBack(row,'Role')",
+                                                "App.FindBack.CallBack(null,'Role');", 12
+                                            ))
+
+
+        </div>
+
+    </div>
+</div>
+<!--按钮-->
+<div class="my-ButtonBar text-right">
+    <button type="button" class="btn btn-success" data-bind="visible: !App.IsAdd()" onclick="adminForm.resetUrl(null)">新增</button>
+    <button class="btn btn-primary" onclick="App.Save()">提交</button>
+    <button class="btn btn-danger" onclick="admin.layer.close(admin.getLayerIframeIndex());">关闭</button>
+</div>
+@section css{
+}
+@section js{
+    <script src="~/Scripts/libs/Ko/Knockout-3.4.2.debug.js"></script>
+    <script src="~/Scripts/admin-form.js"></script>
+    <script type="text/javascript">
+        var KeyId = '@KeyId';
+        model = new vModel();
+        $(function () {
+            ko.applyBindings(model);//注册vModel
+            App.Load();
+        });
+
+        var App = {
+            IsAdd: function () {
+                return !KeyId;
+            },
+            Load: function () {
+                adminForm.load({
+                    KeyId: KeyId,
+                    url: "@Url.Action("LoadForm")",
+                    callBack: function (r) {
+
+                    }
+                });
+            },
+            Save: function () {
+                adminForm.Save({
+                    url: "@Url.Action("Save")"
+                });
+            },
+            FindBack: {
+                CallBack: function (row, tag, dom) {
+                    if (row != null && row.length > 0) row = row[0];
+                    if (tag == "Role") {
+                        model.Role_ID(row ? row._ukid : "");
+                        model.Role_Name(row ? row.Role_Name : "");
+                    }
+                }
+            }
+        };
+
+        //User_ID, User_Name, User_LoginName, User_Pwd, User_Email, User_CreateTime
+        function vModel() {
+            @(UI.CreateKOViewModel(new Sys_User(),new Sys_Role()))
+            //this.User_ID = ko.observable("");
+            //this.User_Name = ko.observable("");
+            //this.User_LoginName = ko.observable("");
+            //this.User_Pwd = ko.observable("");
+            //this.User_Email = ko.observable("");
+
+            //this.Role_ID = ko.observable("");
+            //this.Role_Name = ko.observable("");
+        }
+    </script>
+}

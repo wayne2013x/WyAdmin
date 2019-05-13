@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>@ViewBag.Title</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,minimal-ui">
+    <meta name="renderer" content="webkit">
+    <meta name="robots" content="nofollow">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="">
+    <!--[if lt IE 9]>
+      <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+      <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link href="~/Content/core.css" rel="stylesheet" />
+    <link href="~/Content/site.css" rel="stylesheet" />
+    <link href="~/Content/animate.css" rel="stylesheet" />
+    <link href="~/fonts/libs/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/fonts/icons/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" />
+    <link href="~/fonts/icons/themify-icons/themify-icons.css" rel="stylesheet" />
+    <link href="~/fonts/libs/web-icons-master/css/web-icons.css" rel="stylesheet" />
+    <link href="~/Content/main.css" rel="stylesheet" />
+    @RenderSection("css", required: false)
+    <!--基础js-->
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/libs/popper.min.js"></script>
+    <script src="~/Scripts/libs/bootstrap-4.1.3-dist/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/libs/bootstrap-4.1.3-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Scripts/libs/layer-v3.1.1/layer/layer.js"></script>
+    @{Html.RenderPartial("~/Areas/Admin/Views/Sys/PowerControl/Index.cshtml");}
+</head>
+<body class="@ViewBag.BodyClass">
+    @RenderBody()
+    <script src="~/Scripts/admin.js"></script>
+    @RenderSection("js", required: false)
+</body>
+</html>
+
