@@ -1,0 +1,81 @@
+﻿@{
+    var KeyId = Request.QueryString["ID"];
+}
+<div class="page-content animated fadeInDown">
+    <div class="container-fluid pb-100">
+        <div class="row" id="form">
+            <!--检索面板-->
+
+            <div class="col-sm-12">
+                <h4 class="example-title">编号</h4>
+                <input type="text" class="form-control" name="Role_Num" data-bind="value:Role_Num" placeholder="请输入 编号" />
+            </div>
+
+            <div class="col-sm-12">
+                <h4 class="example-title">角色名</h4>
+                <input type="text" class="form-control" name="Role_Name" data-bind="value:Role_Name" placeholder="请输入 角色名" />
+            </div>
+
+            <div class="col-sm-12">
+                <h4 class="example-title">备注</h4>
+                <textarea class="form-control" name="Role_Remark" data-bind="value:Role_Remark" placeholder="请输入 备注"></textarea>
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+<!--按钮-->
+<div class="my-ButtonBar text-right">
+    <button type="button" class="btn btn-success" data-bind="visible: !App.IsAdd()" onclick="adminForm.resetUrl(null)">新增</button>
+    <button class="btn btn-primary" onclick="App.Save()">提交</button>
+    <button class="btn btn-danger" onclick="admin.layer.close(admin.getLayerIframeIndex());">关闭</button>
+</div>
+@section css{
+}
+@section js{
+    <script src="~/Scripts/libs/Ko/Knockout-3.4.2.debug.js"></script>
+    <script src="~/Scripts/admin-form.js"></script>
+    <script type="text/javascript">
+        var KeyId = '@KeyId';
+        model = new vModel();
+        $(function () {
+            ko.applyBindings(model);//注册vModel
+            App.Load();
+        });
+
+        var App = {
+            IsAdd: function () {
+                return !KeyId;
+            },
+            Load: function () {
+                adminForm.load({
+                    KeyId: KeyId,
+                    url: "@Url.Action("LoadForm")",
+                    callBack: function (r) {
+
+                    }
+                });
+            },
+            Save: function () {
+                adminForm.Save({
+                    url: "@Url.Action("Save")"
+                });
+            },
+            FindBack: {
+                CallBack: function (row, tag, dom) {
+                    //if (tag == "Role") {
+                    //    model.Role_ID(row ? row.Role_ID : "");
+                    //    model.Role_Name(row ? row.Role_Name : "");
+                    //}
+                }
+            }
+        };
+
+        //Role_ID, Role_Num, Role_Name, Role_Remark, Role_CreateTime
+        function vModel() {
+            @(UI.CreateKOViewModel(new Sys_Role()))
+        }
+    </script>
+}

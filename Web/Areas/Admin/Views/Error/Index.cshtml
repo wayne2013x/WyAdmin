@@ -1,0 +1,94 @@
+﻿@{
+    ViewBag.Title = "很抱歉出现了一些异常";
+}
+@model ErrorModel
+
+<div id="wy-container" style="padding:15px; overflow:hidden;overflow-y:scroll;">
+
+
+    <div class="col-sm-12">
+
+        <div class="examle-wrap">
+            <h4 class="example-title">@ViewBag.Title</h4>
+            <div class="example">
+                <div class="panel-group" id="exampleAccordionDefault" aria-multiselectable="true" role="tablist">
+
+
+
+                    <div class="panel">
+                        <div class="panel-heading" id="exampleHeadingDefault1" role="tab">
+                            <a class="panel-title " data-toggle="collapse" href="#exampleCollapseDefault1" data-parent="#exampleAccordionDefault" aria-expanded="true" aria-controls="exampleCollapseDefault1">
+                                异常消息
+                            </a>
+                        </div>
+                        <div class="panel-collapse in" id="exampleCollapseDefault1" aria-labelledby="exampleHeadingDefault1" role="tabpanel">
+                            <div class="panel-body" style="word-wrap:break-word ;">
+                                @Model.msg
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel">
+                        <div class="panel-heading" id="exampleHeadingDefaultOne" role="tab">
+                            <a class="panel-title collapsed" data-toggle="collapse" href="#exampleCollapseDefaultOne" data-parent="#exampleAccordionDefault" aria-expanded="false" aria-controls="exampleCollapseDefaultOne">
+                                堆栈
+                            </a>
+                        </div>
+                        <div class="panel-collapse collapse" id="exampleCollapseDefaultOne" aria-labelledby="exampleHeadingDefaultOne" role="tabpanel">
+                            <div class="panel-body" style="word-wrap:break-word ;">
+                                @Model.StackTrace
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel">
+                        <div class="panel-heading" id="exampleHeadingDefaultTwo" role="tab">
+                            <a class="panel-title collapsed" data-toggle="collapse" href="#exampleCollapseDefaultTwo" data-parent="#exampleAccordionDefault" aria-expanded="false" aria-controls="exampleCollapseDefaultTwo">
+                                异常引发方法
+                            </a>
+                        </div>
+                        <div class="panel-collapse collapse" id="exampleCollapseDefaultTwo" aria-labelledby="exampleHeadingDefaultTwo" role="tabpanel">
+                            <div class="panel-body" style="word-wrap:break-word ;">
+                                @Model.TargetSite
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel">
+                        <div class="panel-heading" id="exampleHeadingDefaultThree" role="tab">
+                            <a class="panel-title collapsed" data-toggle="collapse" href="#exampleCollapseDefaultThree" data-parent="#exampleAccordionDefault" aria-expanded="false" aria-controls="exampleCollapseDefaultThree">
+                                异常对象或应用程序
+                            </a>
+                        </div>
+                        <div class="panel-collapse collapse" id="exampleCollapseDefaultThree" aria-labelledby="exampleHeadingDefaultThree" role="tabpanel">
+                            <div class="panel-body" style="word-wrap:break-word ;">
+                                @Model.Source
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel">
+                        <div class="panel-heading" id="exampleHeadingDefault4" role="tab">
+                            <a class="panel-title collapsed" data-toggle="collapse" href="#exampleCollapseDefault4" data-parent="#exampleAccordionDefault" aria-expanded="false" aria-controls="exampleCollapseDefault4">
+                                异常信息键值对集合
+                            </a>
+                        </div>
+                        <div class="panel-collapse collapse" id="exampleCollapseDefault4" aria-labelledby="exampleCollapseDefault4" role="tabpanel">
+                            <div class="panel-body" style="word-wrap:break-word ;">
+                                @Model.Data
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+</div>
+
+
+

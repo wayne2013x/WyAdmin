@@ -1,0 +1,106 @@
+﻿@{
+    Layout = null;
+    ViewBag.Title = "WyAdmin";
+}
+<!DOCTYPE html>
+<html lang="zh-CN" style="overflow: hidden;">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <title>@ViewBag.Title</title>
+    <!--[if lt IE 9]>
+      <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+      <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link href="~/Content/core.css" rel="stylesheet" />
+    <link href="~/Content/site.css" rel="stylesheet" />
+    <link href="~/Content/animate.css" rel="stylesheet" />
+    <link href="~/Content/main.css" rel="stylesheet" />
+    <link href="~/fonts/libs/web-icons-master/css/web-icons.css" rel="stylesheet" />
+   
+</head>
+<body>
+    <div id="wy-login" style="background:url(/Content/image/bg14.jpg)">
+        <div class="login-modal">
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="login-panel">
+                    <h2 class="text-center" style="font-size: 25px;">WyAdmin</h2>
+                    <div class="container-fluid">
+                        <div class="pt-45">
+                            <div class="form-group form-material">
+                                <label class="col-form-label" for="uName">帐户名</label>
+                                <input type="text" class="form-control" id="uName" name="uName" placeholder="请输入帐户名">
+                            </div>
+                            <div class="form-group form-material">
+                                <label class="col-form-label" for="uName">密码</label>
+                                <input type="password" class="form-control" id="uName" name="uPwd" placeholder="请输入密码">
+                            </div>
+                            <div class="form-group form-material">
+                                <label class="col-form-label" for="inputAddons">验证码</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="loginCode" placeholder="请输入验证码">
+                                    <div class="input-group-append">
+                                        <img class="yzm" alt="看不清？点击更换" src="/Admin/Login/GetAuthCode" onclick="this.src='/Admin/Login/GetAuthCode?s='+new Date().getTime();" width="100" style="height: 31px; border-bottom: 1px solid #e4eaec;">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <a class="btn btn-block btn-primary btn-lg mt-60" href="javascript:;" onclick="App.Checked();">登录</a>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/libs/layer-v3.1.1/layer/layer.js"></script>
+    <script src="~/Scripts/admin.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $(document).keydown(function (e) {
+                if (e.which == 13) App.Checked();
+            });
+
+        });
+        var App = {
+            Checked: function () {
+                var uName = $("input[name=uName]").val();
+                var uPwd = $("input[name=uPwd]").val();
+                var loginCode = $("input[name=loginCode]").val();
+                if (!uName) return admin.msg("请输入用户名", "警告");
+                if (!uPwd) return admin.msg("请输入密码", "警告");
+                if (!loginCode) return admin.msg("请输入验证码", "警告");
+
+                admin.ajax({
+                    url: "/Admin/Login/Checked",
+                    data: {
+                        uName: uName,
+                        uPwd: uPwd,
+                        loginCode: loginCode
+                    },
+                    success: function (r) {
+                        if (r.status == 1) {
+                            admin.loading.start();
+                            window.location = r.url;
+                        }
+
+                    }
+                });
+
+            }
+
+        };
+    </script>
+</body>
+</html>
+

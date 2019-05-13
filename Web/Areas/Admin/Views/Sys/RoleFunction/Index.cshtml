@@ -1,0 +1,177 @@
+﻿@model List<Sys_Role>
+<div class="page animation-fade">
+
+    <div class="page-content">
+
+        <div class="row">
+            <div class="col-sm-10 offset-sm-1 row">
+
+                <!--检索面板-->
+                <div class="col-sm-6">
+                    <div class="panel" style="height:calc(100vh - 52px)">
+                        <div class="panel-body" style="height:calc(100vh - 160px); overflow-y:auto;">
+
+                            <table class="table table-bordered table-default table-hover" id="table-roles">
+                                <thead>
+                                    <tr>
+                                        <th>操作</th>
+                                        <th>编号</th>
+                                        <th>角色</th>
+                                        <th>备注</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr onclick="$(this).find('.radio label').click()" style="cursor:pointer;">
+                                            <td>
+                                                <div class="radio">
+                                                    <label >
+                                                        <input type="radio" name="role" value="@item.Role_ID"> @item.Role_Name
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>@item.Role_Num</td>
+                                            <td>@item.Role_Name</td>
+                                            <td>@item.Role_Remark</td>
+                                        </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!--树-->
+                <div class="col-sm-6">
+                    <div class="panel" style="height:calc(100vh - 52px)">
+                        <div class="panel-heading">
+                            <h4>请勾选权限</h4>
+                        </div>
+                        <div class="panel-body" style="height:calc(100vh - 160px); overflow-y:auto;">
+                            <!--标签树-->
+                            <ul id="tree" class="ztree"></ul>
+
+                        </div>
+                        <div class="panel-footer text-right">
+                            <button class="btn btn-primary" onclick="App.Save()">保存</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+@section css{
+    <link href="~/Scripts/libs/zTree/css/metroStyle/metroStyle.css" rel="stylesheet" />
+    <link href="~/Scripts/libs/icheck/skins/all.css" rel="stylesheet" />
+    <style type="text/css">
+        .panel {
+            padding: 20px;
+        }
+    </style>
+}
+@section js{
+    <script src="~/Scripts/admin-list.js"></script>
+    <script src="~/Scripts/libs/icheck/icheck.min.js"></script>
+    <script src="~/Scripts/libs/zTree/js/jquery.ztree.all.min.js"></script>
+    <script type="text/javascript">
+        var _roleid;
+        $(function () {
+            $('input[type=radio]').iCheck({
+                checkboxClass: 'icheckbox_flat-green',
+                radioClass: 'iradio_flat-green'
+            });
+            $('input[type=radio]').on('ifChecked', function (event) {
+                App.GetRoleMenuFunctionTree($(this).val());
+            });
+            //加载默认click 第一个 角色
+            $("#table-roles .radio:first label").click();
+        });
+
+        var App = {
+
+            GetRoleMenuFunctionTree: function (id) {
+                _roleid = id;
+                admin.ajax({
+                    url: "@Url.Action("GetRoleMenuFunctionTree")",
+                    data: {
+                        roleid: id
+                    },
+                    loading: true,
+                    success: function (r) {
+                        var setting = {
+                            check: {
+                                enable: true,
+                                chkboxType: { "Y": "ps", "N": "ps" }
+                            },
+                            view: {
+                                dblClickExpand: true
+                            },
+                            data: {
+                                simpleData: {
+                                    enable: true,
+                                    idKey: "id",
+                                    pIdKey: "pId",
+                                    rootPId: 0,
+                                },
+                                key: { checked: 'checked' }
+                            },
+                            callback: {
+                                onClick: function (event, treeId, treeNode) {
+                                    var treeObj = $.fn.zTree.getZTreeObj("tree");
+                                    if (treeNode.checked == false && treeNode.tag == "fun") {
+                                        treeObj.checkNode(treeNode, true, true);
+                                    } else {
+                                        treeObj.checkNode(treeNode, false, false);
+                                    }
+                                },
+                            }
+                        };
+                        zTree = $.fn.zTree.init($("#tree"), setting, r.value);
+                        zTree.expandAll(true);//展开所有
+                    }
+                });
+            },
+            Save: function () {
+                var treeObj = $.fn.zTree.getZTreeObj("tree");
+                var nodes = treeObj.getCheckedNodes(true);
+                var array = [];
+                for (var i = 0; i < nodes.length; i++) {
+                    if (nodes[i].tag == "MenuFunction") {
+                        array.push({
+                            RoleMenuFunction_RoleID: _roleid,
+                            RoleMenuFunction_FunctionID: nodes[i].id,
+                            RoleMenuFunction_MenuID: nodes[i].pId
+                        });
+                    }
+                }
+
+                //保存功能
+                admin.ajax({
+                    url: "@Url.Action("Save")",
+                    data: {
+                        Sys_RoleMenuFunction_List: JSON.stringify(array),
+                        RoleId: _roleid
+                    },
+                    success: function (r) {
+                        if (r.status == 1) {
+                            App.GetRoleMenuFunctionTree(_roleid);
+                            admin.msg("保存成功!", "成功");
+                        }
+                    }
+                });
+            }
+
+        };
+
+    </script>
+}
