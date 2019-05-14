@@ -3,9 +3,9 @@ var wy = {
     //存放dom 对象类
     domObj: {
         //左边菜单外部容器
-        hzyNavMenu: $('nav.wy-navMenu'),
+        wyNavMenu: $('nav.wy-navMenu'),
         //选项卡 div 容器
-        hzynavTabcenter: $('content .wy-navTab-center'),
+        wynavTabcenter: $('content .wy-navTab-center'),
         //
         pageContent: $('#pageContent'),
         //皮肤样式名称
@@ -30,13 +30,13 @@ var wy = {
                 index = 0;
             }
 
-            wy.domObj.hzyNavMenu.find('.wy-navMenu-sidebar').removeClass("sidebar-nav1");
-            wy.domObj.hzyNavMenu.find('.wy-navMenu-sidebar').removeClass("sidebar-nav");
+            wy.domObj.wyNavMenu.find('.wy-navMenu-sidebar').removeClass("sidebar-nav1");
+            wy.domObj.wyNavMenu.find('.wy-navMenu-sidebar').removeClass("sidebar-nav");
             if (index == 1) {
-                wy.domObj.hzyNavMenu.find('.wy-navMenu-sidebar').addClass("sidebar-nav1");
+                wy.domObj.wyNavMenu.find('.wy-navMenu-sidebar').addClass("sidebar-nav1");
             }
             else if (index == 0) {
-                wy.domObj.hzyNavMenu.find('.wy-navMenu-sidebar').addClass("sidebar-nav");
+                wy.domObj.wyNavMenu.find('.wy-navMenu-sidebar').addClass("sidebar-nav");
             }
         }
 
@@ -87,7 +87,7 @@ var wy = {
         };
 
         function resize() {
-            var dom = wy.domObj.hzyNavMenu;
+            var dom = wy.domObj.wyNavMenu;
             var menuOpenState = localStorage.getItem('menuOpenState');
             if (wy.isPc()) {
                 dom.removeClass('wy-navMenu-left-220');
@@ -119,7 +119,7 @@ var wy = {
         toggle: function ($this, isOpen) {
             if (isNaN(parseInt(isOpen)) && $this)
                 $this = $($this);
-            var dom = wy.domObj.hzyNavMenu;
+            var dom = wy.domObj.wyNavMenu;
 
             if (!isNaN(parseInt(isOpen))) {
                 if (isOpen == 2 && wy.isPc()) {
@@ -199,7 +199,7 @@ var wy = {
         //添加标签 obj={href:,text:}
         add: function (obj) {
             //var _url = href.substr(2);
-            var ul = wy.domObj.hzynavTabcenter.find('ul');
+            var ul = wy.domObj.wynavTabcenter.find('ul');
             var lis = ul.find('li');
             lis.removeClass('active');
             var flag = 0;
@@ -303,7 +303,7 @@ var wy = {
             var dom = $(dom);
             var href = dom.find('a').attr('wy-router-href');
 
-            var lookDiv = wy.domObj.hzynavTabcenter;//可见区域
+            var lookDiv = wy.domObj.wynavTabcenter;//可见区域
             var ul = lookDiv.find("ul");
             var ulW = ul.find("li").length * 120;
 
@@ -333,7 +333,7 @@ var wy = {
         },
         //左移动
         leftMove: function () {
-            var lookDiv = wy.domObj.hzynavTabcenter;//可见区域
+            var lookDiv = wy.domObj.wynavTabcenter;//可见区域
             var ul = lookDiv.find('ul');
 
             var lookW = lookDiv.width();
@@ -350,7 +350,7 @@ var wy = {
         },
         //右移动
         rightMove: function () {
-            var lookDiv = wy.domObj.hzynavTabcenter;//可见区域
+            var lookDiv = wy.domObj.wynavTabcenter;//可见区域
             var ul = lookDiv.find('ul');
 
             var lookW = lookDiv.width();
@@ -368,8 +368,8 @@ var wy = {
         },
         //移除其他选项卡
         removeOtherTab: function () {
-            var hzynavTabcenter = wy.domObj.hzynavTabcenter;
-            var ul = hzynavTabcenter.find('ul');
+            var wynavTabcenter = wy.domObj.wynavTabcenter;
+            var ul = wynavTabcenter.find('ul');
             var PageContent = wy.domObj.pageContent;
             var lis = ul.find("li:gt(0)");
             lis.each(function (i, e) {
@@ -386,8 +386,8 @@ var wy = {
         },
         //移除所有选项卡
         removeAllTab: function () {
-            var hzynavTabcenter = wy.domObj.hzynavTabcenter;
-            var ul = hzynavTabcenter.find('ul');
+            var wynavTabcenter = wy.domObj.wynavTabcenter;
+            var ul = wynavTabcenter.find('ul');
             var PageContent = wy.domObj.pageContent;
             ul.find("li:gt(0)").each(function (i, e) {
                 var href = $(this).find('a').attr('wy-router-href');
@@ -411,8 +411,8 @@ var wy = {
                 wy.tabs.actice(li);
             }
             else {
-                var hzynavTabcenter = wy.domObj.hzynavTabcenter;
-                li = hzynavTabcenter.find('ul li.wy-navTab-li.active');
+                var wynavTabcenter = wy.domObj.wynavTabcenter;
+                li = wynavTabcenter.find('ul li.wy-navTab-li.active');
                 wy.tabs.actice(li);
             }
             var PageContent = wy.domObj.pageContent;

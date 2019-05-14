@@ -107,7 +107,7 @@ namespace Application.Class
 
             var _IDataReader = db.ExecuteReader("PROC_SPLITPAGE", _DynamicParameters, null, 30, CommandType.StoredProcedure);
             //将 IDataReader 对象转换为 DataSet 
-            DataSet _DataSet = new AdoExtend.HZYDataSet();
+            DataSet _DataSet = new AdoExtend.WYDataSet();
             _DataSet.Load(_IDataReader, LoadOption.OverwriteChanges, null, new DataTable[] { });
 
             if (_DataSet.Tables.Count == 2)

@@ -56,10 +56,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class\AdoExtend\HZYDataAdapter.cs">
+    <Compile Include="Class\AdoExtend\WYDataAdapter.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Class\AdoExtend\HZYDataSet.cs">
+    <Compile Include="Class\AdoExtend\WYDataSet.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Class\BaseLogic.cs" />

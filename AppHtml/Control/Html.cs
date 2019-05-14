@@ -261,30 +261,18 @@ namespace AppHtml.Control
         /// <returns></returns>
         public string UploadImage(string Title, string Name, string Tips, int Col, bool IsUpBtn)
         {
-            //<div class="col-sm-6">
-            //    <h4 class="example-title">头像</h4>
-            //    <div class="hzy-upfile">
-            //        <div class="hzy-upfile-item" onload="alert(1);">
-            //            <img src="~/Resource/HzyUI/img/login.jpg" height="140" data-bind="attr:{'src':Member_Photo}" />
-            //            <img src="~/Resource/HzyUI/img/login.jpg" height="140" data-bind="attr:{'src':Member_Photo}" />
-            //            <img src="~/Resource/HzyUI/img/login.jpg" height="140" data-bind="attr:{'src':Member_Photo}" />
-            //            <img src="~/Resource/HzyUI/img/login.jpg" height="140" data-bind="attr:{'src':Member_Photo}" />
-            //        </div>
-            //        <div class="hzy-upfile-shade" onclick="$('input[name=Member_Photo]').click();">请点击此出选则图片文件</div>
-            //        <input type="file" accept="image/*" name="Member_Photo" class="hide" onchange="if(this.files[0])model.Member_Photo(admin.getObjectUrl(this.files[0]))">
-            //    </div>
-            //</div>
+            
 
             StringBuilder sb = new StringBuilder();
             sb.Append("<div class=\"col-sm-" + Col + "\">");
             sb.Append("    <h4 class=\"example-title\">" + Title + "</h4>");
-            sb.Append("    <div class=\"hzy-upfile\">");
-            sb.Append("        <div class=\"hzy-upfile-item\" " + (IsUpBtn ? "" : "style='height:200px;'") + ">");
+            sb.Append("    <div class=\"wy-upfile\">");
+            sb.Append("        <div class=\"wy-upfile-item\" " + (IsUpBtn ? "" : "style='height:200px;'") + ">");
             sb.Append("            <img height=\"" + (IsUpBtn ? "140" : "186") + "\" data-bind=\"visible:" + Name + ",attr:{'src':" + Name + "}\" />");
             sb.Append("        </div>");
             if (IsUpBtn)
             {
-                sb.Append("        <div class=\"hzy-upfile-shade\" onclick=\"$('input[name=" + Name + "]').click();\">" + Tips + "</div>");
+                sb.Append("        <div class=\"wy-upfile-shade\" onclick=\"$('input[name=" + Name + "]').click();\">" + Tips + "</div>");
                 sb.Append("        <input type=\"file\" accept=\"image/*\" name=\"" + Name + "\" class=\"hide\" onchange=\"if(this.files[0])model." + Name + "(admin.getObjectUrl(this.files[0]));\">");
             }
 
@@ -305,24 +293,12 @@ namespace AppHtml.Control
         /// <returns></returns>
         public string UploadFile(string Title, string Name, string DownloadName, int Col, string Tips)
         {
-            //<div class="col-sm-6">
-            //    <h4 class="example-title">文件路径</h4>
-            //    <div class="hzy-upfile">
-            //        <div class="hzy-upfile-item">
-            //            <a data-bind="visible:Member_FilePath,attr:{'href':Member_FilePath,'title':Member_FilePath},text:Member_FilePath" target="_blank"></a>
-            //            <a data-bind="visible:Member_FilePath,attr:{'href':Member_FilePath,'title':Member_FilePath},text:Member_FilePath" target="_blank"></a>
-            //            <a data-bind="visible:Member_FilePath,attr:{'href':Member_FilePath,'title':Member_FilePath},text:Member_FilePath" target="_blank"></a>
-            //        </div>
-            //        <div class="hzy-upfile-shade" onclick="$('input[name=Member_FilePath]').click();">请点击此处选则文件</div>
-            //        <input type="file" class="hide" name="Member_FilePath" onchange="if (this.files[0]) { model.Member_FilePath(this.files[0].name); $(this).parent().find('.hzy-upfile-item a').removeAttr('href') }" />
-            //    </div>
-            //</div>
 
             StringBuilder sb = new StringBuilder();
             sb.Append("<div class=\"col-sm-" + Col + "\">");
             sb.Append("    <h4 class=\"example-title\">" + Title + "</h4>");
-            sb.Append("    <div class=\"hzy-upfile\">");
-            sb.Append("        <div class=\"hzy-upfile-item\">");
+            sb.Append("    <div class=\"wy-upfile\">");
+            sb.Append("        <div class=\"wy-upfile-item\">");
 
             if (string.IsNullOrEmpty(DownloadName))
             {
@@ -334,8 +310,8 @@ namespace AppHtml.Control
             }
 
             sb.Append("        </div>");
-            sb.Append("        <div class=\"hzy-upfile-shade\" onclick=\"$('input[name=" + Name + "]').click();\">" + Tips + "</div>");
-            sb.Append("        <input type=\"file\" class=\"hide\" name=\"" + Name + "\" onchange=\"if (this.files[0]) { model." + Name + "(this.files[0].name); $(this).parent().find('.hzy-upfile-item a').removeAttr('href') }\" />");
+            sb.Append("        <div class=\"wy-upfile-shade\" onclick=\"$('input[name=" + Name + "]').click();\">" + Tips + "</div>");
+            sb.Append("        <input type=\"file\" class=\"hide\" name=\"" + Name + "\" onchange=\"if (this.files[0]) { model." + Name + "(this.files[0].name); $(this).parent().find('.wy-upfile-item a').removeAttr('href') }\" />");
             sb.Append("    </div>");
             sb.Append("</div>");
             return sb.ToString().Trim();
@@ -352,28 +328,15 @@ namespace AppHtml.Control
         /// <returns></returns>
         public string UploadImageMultiple(string Title, string Name, int Col, string EventChange, string Tips)
         {
-            //<div class="col-sm-6">
-            //    <h4 class="example-title">头像</h4>
-            //    <div class="hzy-upfile">
-            //        <div class="hzy-upfile-item" onload="alert(1);">
-            //            <img src="~/Resource/HzyUI/img/login.jpg" height="140" data-bind="attr:{'src':Member_Photo}" />
-            //            <img src="~/Resource/HzyUI/img/login.jpg" height="140" data-bind="attr:{'src':Member_Photo}" />
-            //            <img src="~/Resource/HzyUI/img/login.jpg" height="140" data-bind="attr:{'src':Member_Photo}" />
-            //            <img src="~/Resource/HzyUI/img/login.jpg" height="140" data-bind="attr:{'src':Member_Photo}" />
-            //        </div>
-            //        <div class="hzy-upfile-shade" onclick="$('input[name=Member_Photo]').click();">请点击此出选则图片文件</div>
-            //        <input type="file" accept="image/*" name="Member_Photo" class="hide" onchange="if(this.files[0])model.Member_Photo(admin.getObjectUrl(this.files[0]))">
-            //    </div>
-            //</div>
 
             StringBuilder sb = new StringBuilder();
             sb.Append("<div class=\"col-sm-" + Col + "\">");
             sb.Append("    <h4 class=\"example-title\">" + Title + "</h4>");
-            sb.Append("    <div class=\"hzy-upfile\">");
-            sb.Append("        <div class=\"hzy-upfile-item\">");
+            sb.Append("    <div class=\"wy-upfile\">");
+            sb.Append("        <div class=\"wy-upfile-item\">");
             sb.Append("            <!--<img height=\"140\" data-bind=\"visible:" + Name + ",attr:{'src':" + Name + "}\" />-->");
             sb.Append("        </div>");
-            sb.Append("        <div class=\"hzy-upfile-shade\" onclick=\"$('input[name=" + Name + "]').click();\">" + Tips + "</div>");
+            sb.Append("        <div class=\"wy-upfile-shade\" onclick=\"$('input[name=" + Name + "]').click();\">" + Tips + "</div>");
             sb.Append("        <input type=\"file\" accept=\"image/*\" name=\"" + Name + "\" class=\"hide\" onchange=\"" + EventChange + "\" multiple=\"multiple\">");
             sb.Append("    </div>");
             sb.Append("</div>");
@@ -394,25 +357,25 @@ namespace AppHtml.Control
         {
             //<div class="col-sm-6">
             //    <h4 class="example-title">文件路径</h4>
-            //    <div class="hzy-upfile">
-            //        <div class="hzy-upfile-item">
+            //    <div class="wy-upfile">
+            //        <div class="wy-upfile-item">
             //            <a data-bind="visible:Member_FilePath,attr:{'href':Member_FilePath,'title':Member_FilePath},text:Member_FilePath" target="_blank"></a>
             //            <a data-bind="visible:Member_FilePath,attr:{'href':Member_FilePath,'title':Member_FilePath},text:Member_FilePath" target="_blank"></a>
             //            <a data-bind="visible:Member_FilePath,attr:{'href':Member_FilePath,'title':Member_FilePath},text:Member_FilePath" target="_blank"></a>
             //        </div>
-            //        <div class="hzy-upfile-shade" onclick="$('input[name=Member_FilePath]').click();">请点击此处选则文件</div>
-            //        <input type="file" class="hide" name="Member_FilePath" onchange="if (this.files[0]) { model.Member_FilePath(this.files[0].name); $(this).parent().find('.hzy-upfile-item a').removeAttr('href') }" />
+            //        <div class="wy-upfile-shade" onclick="$('input[name=Member_FilePath]').click();">请点击此处选则文件</div>
+            //        <input type="file" class="hide" name="Member_FilePath" onchange="if (this.files[0]) { model.Member_FilePath(this.files[0].name); $(this).parent().find('.wy-upfile-item a').removeAttr('href') }" />
             //    </div>
             //</div>
 
             StringBuilder sb = new StringBuilder();
             sb.Append("<div class=\"col-sm-" + Col + "\">");
             sb.Append("    <h4 class=\"example-title\">" + Title + "</h4>");
-            sb.Append("    <div class=\"hzy-upfile\">");
-            sb.Append("        <div class=\"hzy-upfile-item\">");
+            sb.Append("    <div class=\"wy-upfile\">");
+            sb.Append("        <div class=\"wy-upfile-item\">");
             sb.Append("            <!--<a data-bind=\"visible:" + Name + ",attr:{'href':" + Name + ",'title':" + Name + "},text:" + Name + "\" target=\"_blank\"></a>-->");
             sb.Append("        </div>");
-            sb.Append("        <div class=\"hzy-upfile-shade\" onclick=\"$('input[name=" + Name + "]').click();\">" + Tips + "</div>");
+            sb.Append("        <div class=\"wy-upfile-shade\" onclick=\"$('input[name=" + Name + "]').click();\">" + Tips + "</div>");
             sb.Append("        <input type=\"file\" class=\"hide\" name=\"" + Name + "\" onchange=\"" + EventChange + "\" multiple=\"multiple\" />");
             sb.Append("    </div>");
             sb.Append("</div>");
