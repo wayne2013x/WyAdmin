@@ -14,7 +14,7 @@ Visual Studio 2017
 SSMS 2017
 
 
-#### 演示地址
+#### Demo
 
 演示地址 www.letmole.cn  账号:user 密码：987123
 
