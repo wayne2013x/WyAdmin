@@ -16,7 +16,7 @@ SSMS 2017
 
 #### 演示地址
 
-演示地址 http:www.letmole.cn  账号:user 密码：987123
+演示地址 www.letmole.cn  账号:user 密码：987123
 
 
 
