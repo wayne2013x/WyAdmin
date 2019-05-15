@@ -4870,6 +4870,8 @@
     <Content Include="Resource\material\scss\style.scss" />
     <Content Include="Resource\material\scss\variable.scss" />
     <Content Include="Resource\material\scss\widgets.scss" />
+    <Content Include="Areas\Admin\Views\Home\Picnic.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\Material.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />

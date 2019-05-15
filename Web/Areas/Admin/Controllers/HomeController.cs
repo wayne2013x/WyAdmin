@@ -35,6 +35,22 @@ namespace Web.Areas.Admin.Controllers
         {
             return View();
         }
+        /// <summary>
+        /// Picnic
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Picnic()
+        {
+            return View();
+        }
+        /// <summary>
+        /// Material UI
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Material()
+        {
+            return View();
+        }
 
     }
 }
