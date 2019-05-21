@@ -236,3 +236,12 @@ K:\Project\WyAdmin\Web\obj\Debug\Web.csproj.CoreCompileInputs.cache
 K:\Project\WyAdmin\Web\obj\Debug\Web.csproj.CopyComplete
 K:\Project\WyAdmin\Web\obj\Debug\Web.dll
 K:\Project\WyAdmin\Web\obj\Debug\Web.pdb
+K:\Project\WyAdmin\Web\bin\System.Net.Http.Formatting.dll
+K:\Project\WyAdmin\Web\bin\System.Web.Http.dll
+K:\Project\WyAdmin\Web\bin\System.Web.Http.WebHost.dll
+K:\Project\WyAdmin\Web\bin\System.Net.Http.Formatting.xml
+K:\Project\WyAdmin\Web\bin\System.Web.Http.xml
+K:\Project\WyAdmin\Web\bin\System.Web.Http.WebHost.xml
+K:\Project\WyAdmin\Web\bin\zh-Hans\System.Net.Http.Formatting.resources.dll
+K:\Project\WyAdmin\Web\bin\zh-Hans\System.Web.Http.resources.dll
+K:\Project\WyAdmin\Web\bin\zh-Hans\System.Web.Http.WebHost.resources.dll
